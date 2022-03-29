@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 
 import AppNavigation from './AppNavigation';
+import {StatusBar} from 'native-base';
 
 const RootNavigation = () => {
   const session = useSelector(state => get(state, 'session'));
@@ -17,6 +18,7 @@ const RootNavigation = () => {
   return (
     <SafeAreaProvider>
       <AppNavigation />
+      <StatusBar backgroundColor={'#ffffff'} barStyle="dark-content" />
     </SafeAreaProvider>
   );
 };
