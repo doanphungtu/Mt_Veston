@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import RadioBox from '~/components/RadioBox';
 
 import SvgIcon from '~/components/SvgIcon';
-import {SIGNIN} from '~/constants/Routes';
+import {FILL_PHONE, SIGNIN} from '~/constants/Routes';
 import useBoolean from '~/hooks/useBoolean';
 import {navigate} from '~/utils/navigationHelpers';
 import styles from './styles';
@@ -153,7 +153,12 @@ const Signup = () => {
               onChangeValue={() => setTrue()}
             />
           </HStack>
-          <TouchableOpacity style={styles.btnSignin} onPress={() => formik.handleSubmit()}>
+          <TouchableOpacity
+            style={styles.btnSignin}
+            onPress={() => {
+              // formik.handleSubmit();
+              navigate(FILL_PHONE);
+            }}>
             <Text fontSize={20} color="white">
               Đăng ký
             </Text>
