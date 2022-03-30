@@ -7,14 +7,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {goBack} from '~/utils/navigationHelpers';
 
 const Header = props => {
-  const {rootStyle, headerContainerStyle, viewTitleContainerStyle, title, titleStyle, headerRight} =
-    props;
+  const {
+    rootStyle,
+    headerContainerStyle,
+    viewTitleContainerStyle,
+    title,
+    titleStyle,
+    headerRight,
+    showBackButton = true,
+  } = props;
   return (
     <VStack py={3} style={[styles.rootStyle, rootStyle]}>
       <HStack style={[styles.defaultHeaderContainer, headerContainerStyle]}>
-        <TouchableOpacity style={styles.backButtonStyle} onPress={() => goBack()}>
-          <Icon as={Ionicons} name="chevron-back" color="white" size={35} />
-        </TouchableOpacity>
+        {showBackButton ? (
+          <TouchableOpacity style={styles.backButtonStyle} onPress={() => goBack()}>
+            <Icon as={Ionicons} name="chevron-back" color="white" size={35} />
+          </TouchableOpacity>
+        ) : (
+          <VStack style={styles.backButtonStyle} />
+        )}
         <VStack
           flex="1"
           justifyContent="center"
@@ -43,6 +54,7 @@ const styles = ScaledSheet.create({
   },
   defaultHeaderContainer: {
     paddingHorizontal: 10,
+    alignItems: 'center',
   },
   backButtonStyle: {
     minWidth: 30,

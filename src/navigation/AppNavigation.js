@@ -5,6 +5,7 @@ import {LogBox} from 'react-native';
 
 import * as Routes from '~/constants/Routes';
 import FillPhone from '~/screens/FillPhone';
+import Filter from '~/screens/Filter';
 import ForgotPassword from '~/screens/ForgotPassword';
 import Home from '~/screens/Home';
 import Signin from '~/screens/Signin';
@@ -18,9 +19,9 @@ LogBox.ignoreAllLogs();
 const AppNavigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={Routes.HOME}>
-        <Stack.Screen name={Routes.HOME} component={Home} />
+      <Stack.Navigator initialRouteName={Routes.FILTER}>
         <Stack.Screen name={Routes.TEST} component={Test} />
+        <Stack.Screen name={Routes.HOME} component={Home} options={{headerShown: false}} />
         <Stack.Screen name={Routes.SIGNIN} component={Signin} options={{headerShown: false}} />
         <Stack.Screen name={Routes.SIGNUP} component={Signup} options={{headerShown: false}} />
         <Stack.Screen
@@ -38,6 +39,7 @@ const AppNavigation = () => {
           component={ForgotPassword}
           options={{headerShown: false}}
         />
+        <Stack.Screen name={Routes.FILTER} component={Filter} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
