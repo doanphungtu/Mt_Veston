@@ -1,9 +1,13 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
 import {LogBox} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import * as Routes from '~/constants/Routes';
+import Account from '~/screens/Account';
+import AddCustomer from '~/screens/AddCustomer';
 import DetailCustomer from '~/screens/DetailCustomer';
 import FillPhone from '~/screens/FillPhone';
 import Filter from '~/screens/Filter';
@@ -15,14 +19,57 @@ import Test from '~/screens/Test';
 import VerifyPhone from '~/screens/VerifyPhone';
 import {navigationRef} from '~/utils/navigationHelpers';
 
+const BottomTabNavigation = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
+
+const BottomTabs = () => {
+  return (
+    <BottomTabNavigation.Navigator>
+      <BottomTabNavigation.Screen
+        name={Routes.HOME}
+        component={Home}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({focused}) => {
+            return (
+              <MaterialCommunityIcons
+                name={'home'}
+                size={30}
+                color={focused ? '#0A52A8' : 'grey'}
+              />
+            );
+          },
+        }}
+      />
+      <BottomTabNavigation.Screen
+        name={Routes.ACCOUNT}
+        component={Account}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({focused}) => {
+            return (
+              <MaterialCommunityIcons
+                name={'account'}
+                size={30}
+                color={focused ? '#0A52A8' : 'grey'}
+              />
+            );
+          },
+        }}
+      />
+    </BottomTabNavigation.Navigator>
+  );
+};
+
 const AppNavigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={Routes.DETAIL_CUSTOMER}>
+      <Stack.Navigator initialRouteName={Routes.SIGNIN}>
         <Stack.Screen name={Routes.TEST} component={Test} />
-        <Stack.Screen name={Routes.HOME} component={Home} options={{headerShown: false}} />
+        <Stack.Screen name={Routes.HOME} component={BottomTabs} options={{headerShown: false}} />
         <Stack.Screen name={Routes.SIGNIN} component={Signin} options={{headerShown: false}} />
         <Stack.Screen name={Routes.SIGNUP} component={Signup} options={{headerShown: false}} />
         <Stack.Screen
@@ -44,6 +91,11 @@ const AppNavigation = () => {
         <Stack.Screen
           name={Routes.DETAIL_CUSTOMER}
           component={DetailCustomer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Routes.ADD_CUSTOMER}
+          component={AddCustomer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -5,16 +5,16 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: '#F7F8FA',
   },
-  btnAdd: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: '#0A52A8',
+  btnLogout: {
+    paddingVertical: 10,
+    borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 15,
-    right: 15,
+    backgroundColor: '#D32F2F',
+    alignSelf: 'center',
+    marginBottom: 20,
+    marginTop: 40,
+    width: '90%',
   },
 });
 

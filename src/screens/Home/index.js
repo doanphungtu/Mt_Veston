@@ -2,17 +2,15 @@ import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LottieView from 'lottie-react-native';
 import {Avatar, HStack, Text, VStack} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {get} from 'lodash';
 
-import SvgIcon from '~/components/SvgIcon';
 import styles from './styles';
 import Header from '~/components/Header';
 import {scale} from 'react-native-size-matters';
 import {navigate} from '~/utils/navigationHelpers';
-import {FILTER} from '~/constants/Routes';
+import {ADD_CUSTOMER, FILTER} from '~/constants/Routes';
 
 const Home = () => {
   const {t} = useTranslation();
@@ -64,6 +62,9 @@ const Home = () => {
         renderItem={renderItem}
         ItemSeparatorComponent={() => <VStack height={scale(12)} />}
       />
+      <TouchableOpacity onPress={() => navigate(ADD_CUSTOMER)} style={styles.btnAdd}>
+        <Ionicons name="add" size={30} color="white" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

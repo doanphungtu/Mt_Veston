@@ -1,64 +1,22 @@
-import {Divider, Menu, Pressable, VStack} from 'native-base';
+import {Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ConfirmModal from '~/components/ConfirmModal';
 import Header from '~/components/Header';
 import InputVStack from '~/components/InputVStack';
-import useBoolean from '~/hooks/useBoolean';
 import styles from './styles';
 
-const DetailCustomer = () => {
-  const {value: isEdit, setTrue: enableEdit, setFalse: disbleEdit} = useBoolean(false);
-  const {
-    value: isOpenModalConfirm,
-    setTrue: setOpenModalConfirm,
-    setFalse: setHideModalConfirm,
-  } = useBoolean(false);
-
+const AddCustomer = () => {
   return (
     <SafeAreaView style={styles.root}>
-      <ConfirmModal
-        confirmMessage="Bạn chắc chắn muốn xoá khách hàng này?"
-        isOpen={isOpenModalConfirm}
-        onClose={setHideModalConfirm}
-      />
-      <Header
-        title="Khách hàng"
-        headerRight={() => {
-          if (isEdit) {
-            return (
-              <TouchableOpacity onPress={disbleEdit}>
-                <MaterialCommunityIcons name="check" size={30} color="white" />
-              </TouchableOpacity>
-            );
-          }
-          return (
-            <Menu
-              w="190"
-              trigger={triggerProps => {
-                return (
-                  <Pressable hitSlop={{left: 10, right: 10}} {...triggerProps}>
-                    <MaterialCommunityIcons name="dots-vertical" size={30} color="white" />
-                  </Pressable>
-                );
-              }}>
-              <Menu.Item onPress={enableEdit}>Sửa</Menu.Item>
-              <Divider />
-              <Menu.Item onPress={setOpenModalConfirm}>Xoá</Menu.Item>
-            </Menu>
-          );
-        }}
-      />
+      <Header title="Thêm khách hàng" />
       <KeyboardAwareScrollView style={{flex: 1}}>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
             label="Tên khách hàng"
             input={{
               placeholder: 'Nhập tên khách hàng',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -67,7 +25,6 @@ const DetailCustomer = () => {
             label="Số điện thoại"
             input={{
               placeholder: 'Nhập số điện thoại',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -76,7 +33,6 @@ const DetailCustomer = () => {
             label="Ngày trả"
             input={{
               placeholder: 'Nhập ngày trả',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -85,7 +41,6 @@ const DetailCustomer = () => {
             label="Mã vải"
             input={{
               placeholder: 'Nhập mã vải',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -94,7 +49,6 @@ const DetailCustomer = () => {
             label="Dài áo"
             input={{
               placeholder: 'Nhập dài áo',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -103,7 +57,6 @@ const DetailCustomer = () => {
             label="Vai"
             input={{
               placeholder: 'Nhập vai',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -112,7 +65,6 @@ const DetailCustomer = () => {
             label="Tay"
             input={{
               placeholder: 'Nhập tay',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -121,7 +73,6 @@ const DetailCustomer = () => {
             label="Ngực"
             input={{
               placeholder: 'Nhập ngực',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -130,7 +81,6 @@ const DetailCustomer = () => {
             label="Cổ"
             input={{
               placeholder: 'Nhập cổ',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -139,7 +89,6 @@ const DetailCustomer = () => {
             label="Bắp tay"
             input={{
               placeholder: 'Nhập bắp tay',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -148,7 +97,6 @@ const DetailCustomer = () => {
             label="Bụng"
             input={{
               placeholder: 'Nhập bụng',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -157,7 +105,6 @@ const DetailCustomer = () => {
             label="Mông"
             input={{
               placeholder: 'Nhập mông',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -166,7 +113,6 @@ const DetailCustomer = () => {
             label="Dài quần"
             input={{
               placeholder: 'Nhập dài quần',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -175,7 +121,6 @@ const DetailCustomer = () => {
             label="Ống"
             input={{
               placeholder: 'Nhập ống',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -184,7 +129,6 @@ const DetailCustomer = () => {
             label="Thành tiền"
             input={{
               placeholder: 'Nhập thành tiền',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
@@ -193,13 +137,17 @@ const DetailCustomer = () => {
             label="Ghi chú"
             input={{
               placeholder: 'Nhập ghi chú',
-              isDisabled: !isEdit,
             }}
           />
         </VStack>
+        <TouchableOpacity style={styles.btnNext} onPress={() => {}}>
+          <Text fontSize={20} color="white">
+            Thêm mới
+          </Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
 
-export default DetailCustomer;
+export default AddCustomer;

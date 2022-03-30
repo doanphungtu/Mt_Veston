@@ -7,3 +7,5 @@ export const VERIFY_PHONE = 'VerifyPhone';
 export const FORGOT_PASSWORD = 'ForgotPassword';
 export const FILTER = 'Filter';
 export const DETAIL_CUSTOMER = 'DetailCustomer';
+export const ACCOUNT = 'Account';
+export const ADD_CUSTOMER = 'AddCustomer';
