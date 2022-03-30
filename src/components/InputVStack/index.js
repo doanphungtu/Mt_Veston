@@ -22,6 +22,7 @@ const InputVStack = props => {
               pl="0"
               placeholderTextColor={'#808080'}
               fontSize={18}
+              background="white"
               {...input}
             />
           )}
@@ -29,7 +30,7 @@ const InputVStack = props => {
           <FormControl.ErrorMessage>{errorMsg}</FormControl.ErrorMessage>
         </VStack>
       </FormControl>
-      {showDivider || (!input.isDisabled && <Divider background="#808080" />)}
+      {(showDivider || !input?.isDisabled) && <Divider background="#808080" />}
     </>
   );
 };

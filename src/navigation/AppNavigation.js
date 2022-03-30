@@ -4,6 +4,7 @@ import * as React from 'react';
 import {LogBox} from 'react-native';
 
 import * as Routes from '~/constants/Routes';
+import DetailCustomer from '~/screens/DetailCustomer';
 import FillPhone from '~/screens/FillPhone';
 import Filter from '~/screens/Filter';
 import ForgotPassword from '~/screens/ForgotPassword';
@@ -19,7 +20,7 @@ LogBox.ignoreAllLogs();
 const AppNavigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={Routes.FILTER}>
+      <Stack.Navigator initialRouteName={Routes.DETAIL_CUSTOMER}>
         <Stack.Screen name={Routes.TEST} component={Test} />
         <Stack.Screen name={Routes.HOME} component={Home} options={{headerShown: false}} />
         <Stack.Screen name={Routes.SIGNIN} component={Signin} options={{headerShown: false}} />
@@ -40,6 +41,11 @@ const AppNavigation = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen name={Routes.FILTER} component={Filter} options={{headerShown: false}} />
+        <Stack.Screen
+          name={Routes.DETAIL_CUSTOMER}
+          component={DetailCustomer}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

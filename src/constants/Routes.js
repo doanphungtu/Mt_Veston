@@ -6,3 +6,4 @@ export const FILL_PHONE = 'FillPhone';
 export const VERIFY_PHONE = 'VerifyPhone';
 export const FORGOT_PASSWORD = 'ForgotPassword';
 export const FILTER = 'Filter';
+export const DETAIL_CUSTOMER = 'DetailCustomer';
