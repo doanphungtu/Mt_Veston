@@ -19,11 +19,11 @@ const ConfirmModal = props => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <Modal.Content maxWidth="300px">
         <Modal.CloseButton color="black" />
-        <Modal.Header _text={{fontWeight: 'bold'}} fontSize="16" color="black">
+        <Modal.Header _text={{fontWeight: 'bold', fontSize: 18}} color="black">
           {confirmTitle || 'Thông báo'}
         </Modal.Header>
         <Modal.Body>
-          <Text fontSize="14" fontWeight="400">
+          <Text fontSize={18} fontWeight="400">
             {confirmMessage}
           </Text>
         </Modal.Body>
@@ -38,6 +38,7 @@ const ConfirmModal = props => {
               _text={{
                 fontWeight: 'bold',
                 color: '#808080',
+                fontSize: 18,
               }}
               mr="3">
               {cancelBtnLabel || 'Huỷ'}
@@ -50,6 +51,7 @@ const ConfirmModal = props => {
                 _text={{
                   fontWeight: 'bold',
                   color: 'white',
+                  fontSize: 18,
                 }}
                 {...confirmBtnStyle}>
                 {confirmBtnLabel || 'Ok'}

@@ -27,10 +27,10 @@ const InputVStack = props => {
             />
           )}
           {textArea && <TextArea color="grey.900" borderBottomWidth="0" pl="0" {...textArea} />}
-          <FormControl.ErrorMessage>{errorMsg}</FormControl.ErrorMessage>
         </VStack>
+        {(showDivider || !input?.isDisabled) && <Divider background="#808080" />}
+        <FormControl.ErrorMessage>{errorMsg}</FormControl.ErrorMessage>
       </FormControl>
-      {(showDivider || !input?.isDisabled) && <Divider background="#808080" />}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import database from '@react-native-firebase/database';
 import {useFormik} from 'formik';
-import {HStack, Text, VStack} from 'native-base';
+import {Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -10,94 +10,79 @@ import * as Yup from 'yup';
 import Header from '~/components/Header';
 import InputVStack from '~/components/InputVStack';
 import {LoadingOverlay} from '~/components/Loading';
-import RadioBox from '~/components/RadioBox';
 import useBoolean from '~/hooks/useBoolean';
 import {useNotification} from '~/hooks/useNotification';
 import {changeUserinfoAction} from '~/store/sessionSlice';
 import styles from './styles';
 
-const Account = () => {
+const ChangePassword = () => {
   const dispatch = useDispatch();
   const session = useSelector(state => state.session);
-  const {value: gender, setTrue, setFalse} = useBoolean(session?.userinfo?.gender);
   const {showErrorNotification, showSuccessNotification} = useNotification();
   const {value: loading, setTrue: setShowLoading, setFalse: setHideLoading} = useBoolean();
 
   const formik = useFormik({
     initialValues: {
-      fullname: session?.userinfo?.fullname,
-      phonenumber: session?.userinfo?.phonenumber,
+      password: '',
+      repassword: '',
     },
     onSubmit: values => {
       setShowLoading();
       const newData = {
-        fullname: values.fullname,
-        phonenumber: values.phonenumber,
-        gender: gender,
+        password: values.password,
       };
       database()
         .ref('users/' + session?.userinfo?.id)
         .update(newData)
         .then(() => {
           setHideLoading();
-          showSuccessNotification('Cập nhật thành công');
+          showSuccessNotification('Đổi mật khẩu thành công');
           dispatch(changeUserinfoAction({...session?.userinfo, ...newData}));
         })
-        .catch(() => {
+        .catch(error => {
           setHideLoading();
-          showErrorNotification('Cập nhật thất bại, vui lòng thử lại sau');
+          showErrorNotification('Đổi mật khẩu thất bại, vui lòng thử lại sau');
         });
     },
     validationSchema: Yup.object().shape({
-      fullname: Yup.string().required('Đây là trường bắt buộc'),
-      phonenumber: Yup.string().required('Đây là trường bắt buộc'),
+      password: Yup.string()
+        .required('Đây là trường bắt buộc')
+        .min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+      repassword: Yup.string()
+        .required('Đây là trường bắt buộc')
+        .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
     }),
   });
 
   return (
     <SafeAreaView style={styles.root}>
       {loading && <LoadingOverlay />}
-      <Header title="Tài khoản" />
+      <Header title="Đổi mật khẩu" />
       <KeyboardAwareScrollView style={{flex: 1}}>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
-            label="Họ tên"
+            label="Mật khẩu mới"
             input={{
-              placeholder: 'Nhập họ tên',
-              value: formik.values.fullname,
-              onChangeText: text => formik.setFieldValue('fullname', text),
+              placeholder: 'Nhập mật khẩu mới',
+              value: formik.values.password,
+              onChangeText: text => formik.setFieldValue('password', text),
               keyboardType: 'number-pad',
             }}
-            formControl={{isInvalid: formik.touched.fullname && formik.errors.fullname}}
-            errorMsg={formik.errors.fullname}
+            formControl={{isInvalid: formik.touched.password && formik.errors.password}}
+            errorMsg={formik.errors.password}
           />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
-            label="Số điện thoại"
+            label="Xác nhận mật khẩu"
             input={{
-              placeholder: 'Nhập số điện thoại',
-              value: formik.values.phonenumber,
-              onChangeText: text => formik.setFieldValue('phonenumber', text),
-              keyboardType: 'number-pad',
+              placeholder: 'Xác nhận mật khẩu',
+              value: formik.values.repassword,
+              onChangeText: text => formik.setFieldValue('repassword', text),
             }}
-            formControl={{isInvalid: formik.touched.phonenumber && formik.errors.phonenumber}}
-            errorMsg={formik.errors.phonenumber}
+            formControl={{isInvalid: formik.touched.repassword && formik.errors.repassword}}
+            errorMsg={formik.errors.repassword}
           />
-        </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <Text color="#808080" fontSize={14}>
-            Giới tính
-          </Text>
-          <HStack justifyContent={'space-between'} mt={'10px'}>
-            <RadioBox value={!gender} label="Nam" onChangeValue={() => setFalse()} />
-            <RadioBox
-              containerStyle={{marginLeft: 20}}
-              value={gender}
-              label="Nữ"
-              onChangeValue={() => setTrue()}
-            />
-          </HStack>
         </VStack>
         <TouchableOpacity
           style={styles.btnSave}
@@ -113,4 +98,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default ChangePassword;

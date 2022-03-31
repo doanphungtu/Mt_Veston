@@ -6,13 +6,14 @@ import {SafeAreaView, TouchableOpacity, useWindowDimensions} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
-import {LoadingOverlay} from '~/components/Loading';
 
+import {LoadingOverlay} from '~/components/Loading';
 import SvgIcon from '~/components/SvgIcon';
-import {HOME, SIGNUP} from '~/constants/Routes';
+import {HOME_TAB, SIGNUP} from '~/constants/Routes';
 import useBoolean from '~/hooks/useBoolean';
 import {useNotification} from '~/hooks/useNotification';
 import {changeUserinfoAction} from '~/store/sessionSlice';
+import {navigate} from '~/utils/navigationHelpers';
 import styles from './styles';
 
 const Signin = () => {
@@ -39,11 +40,11 @@ const Signin = () => {
           if (snapshot.exists()) {
             let userData = {};
             snapshot.forEach(child => {
-              userData = child.val();
+              userData = {...child.val(), id: child?.key};
             });
             if (userData?.password === values.password) {
               dispatch(changeUserinfoAction(userData));
-              navigate(HOME);
+              navigate(HOME_TAB);
             } else {
               showErrorNotification(
                 'Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản và mật khẩu',
