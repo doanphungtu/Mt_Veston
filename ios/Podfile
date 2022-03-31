@@ -18,6 +18,7 @@ target 'MTVeston' do
   target 'MTVestonTests' do
     inherit! :complete
     # Pods for testing
+    pod 'Firebase/Analytics'
   end
 
   # Enables Flipper.

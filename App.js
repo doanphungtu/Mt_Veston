@@ -15,6 +15,7 @@ import RootNavigation from '~/navigation/RootNavigation';
 import {BaseTheme} from '~/themes';
 import {store, persistor} from '~/store';
 import '~/translations';
+import '~/configs/firebase';
 
 const App = () => {
   return (

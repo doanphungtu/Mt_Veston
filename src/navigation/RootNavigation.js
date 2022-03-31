@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {get} from 'lodash';
-import {useSelector} from 'react-redux';
+import {StatusBar} from 'native-base';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 
 import AppNavigation from './AppNavigation';
-import {StatusBar} from 'native-base';
 
 const RootNavigation = () => {
   const session = useSelector(state => get(state, 'session'));

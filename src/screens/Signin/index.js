@@ -4,11 +4,13 @@ import React from 'react';
 import {SafeAreaView, TouchableOpacity, useWindowDimensions} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import * as Yup from 'yup';
+import database from '@react-native-firebase/database';
 
 import SvgIcon from '~/components/SvgIcon';
 import {SIGNUP} from '~/constants/Routes';
 import {navigate} from '~/utils/navigationHelpers';
 import styles from './styles';
+const reference = database().ref('/users');
 
 const Signin = () => {
   const {width} = useWindowDimensions();
@@ -23,7 +25,13 @@ const Signin = () => {
       password: Yup.string().required('Đây là trường bắt buộc'),
     }),
   });
-
+  database()
+    .ref('/users/123')
+    .set({
+      name: 'Ada Lovelace',
+      age: 31,
+    })
+    .then(() => console.log('Data set.'));
   return (
     <SafeAreaView style={styles.root}>
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
