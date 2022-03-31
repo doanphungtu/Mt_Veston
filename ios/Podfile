@@ -19,6 +19,7 @@ target 'MTVeston' do
     inherit! :complete
     # Pods for testing
     pod 'Firebase/Analytics'
+    pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
   end
 
   # Enables Flipper.

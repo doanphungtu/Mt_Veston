@@ -6,9 +6,9 @@ const styles = ScaledSheet.create({
     backgroundColor: '#F7F8FA',
   },
   btnAdd: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 60,
     backgroundColor: '#0A52A8',
     justifyContent: 'center',
     alignItems: 'center',

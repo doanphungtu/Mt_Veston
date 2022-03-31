@@ -66,7 +66,6 @@ const Account = () => {
               placeholder: 'Nhập họ tên',
               value: formik.values.fullname,
               onChangeText: text => formik.setFieldValue('fullname', text),
-              keyboardType: 'number-pad',
             }}
             formControl={{isInvalid: formik.touched.fullname && formik.errors.fullname}}
             errorMsg={formik.errors.fullname}

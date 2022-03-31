@@ -16,6 +16,12 @@ const styles = ScaledSheet.create({
     marginTop: 40,
     width: '90%',
   },
+  btnDate: {
+    height: 40,
+    width: '45%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
