@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
 import {LogBox} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux';
 
 import * as Routes from '~/constants/Routes';
 import Account from '~/screens/Account';
@@ -22,6 +23,7 @@ import {navigationRef} from '~/utils/navigationHelpers';
 const BottomTabNavigation = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs();
+LogBox.ignoreLogs(['NativeBase:']);
 
 const BottomTabs = () => {
   return (
@@ -65,9 +67,12 @@ const BottomTabs = () => {
 };
 
 const AppNavigation = () => {
+  const session = useSelector(state => state.session);
+
+  const initialRouteName = session?.userinfo ? Routes.HOME : Routes.SIGNIN;
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={Routes.SIGNIN}>
+      <Stack.Navigator initialRouteName={initialRouteName}>
         <Stack.Screen name={Routes.TEST} component={Test} />
         <Stack.Screen name={Routes.HOME} component={BottomTabs} options={{headerShown: false}} />
         <Stack.Screen name={Routes.SIGNIN} component={Signin} options={{headerShown: false}} />

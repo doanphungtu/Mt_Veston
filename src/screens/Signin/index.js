@@ -1,39 +1,73 @@
+import database from '@react-native-firebase/database';
 import {useFormik} from 'formik';
 import {FormControl, Input, Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity, useWindowDimensions} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
-import database from '@react-native-firebase/database';
+import {LoadingOverlay} from '~/components/Loading';
 
 import SvgIcon from '~/components/SvgIcon';
-import {SIGNUP} from '~/constants/Routes';
-import {navigate} from '~/utils/navigationHelpers';
+import {HOME, SIGNUP} from '~/constants/Routes';
+import useBoolean from '~/hooks/useBoolean';
+import {useNotification} from '~/hooks/useNotification';
+import {changeUserinfoAction} from '~/store/sessionSlice';
 import styles from './styles';
-const reference = database().ref('/users');
 
 const Signin = () => {
+  const dispatch = useDispatch();
   const {width} = useWindowDimensions();
+  const {showErrorNotification} = useNotification();
+  const {value: loading, setTrue: setShowLoading, setFalse: setHideLoading} = useBoolean();
+
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
+      username: 'Doanphungtu',
+      password: '01259355497',
     },
-    onSubmit: values => {},
+    onSubmit: values => {
+      setShowLoading();
+      database()
+        .ref()
+        .child('users')
+        .orderByChild('username')
+        .equalTo(values.username)
+        .once('value')
+        .then(snapshot => {
+          setHideLoading();
+          if (snapshot.exists()) {
+            let userData = {};
+            snapshot.forEach(child => {
+              userData = child.val();
+            });
+            if (userData?.password === values.password) {
+              dispatch(changeUserinfoAction(userData));
+              navigate(HOME);
+            } else {
+              showErrorNotification(
+                'Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản và mật khẩu',
+              );
+            }
+          } else {
+            showErrorNotification(
+              'Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản và mật khẩu',
+            );
+          }
+        })
+        .catch(error => {
+          showErrorNotification('Hệ thống gặp sự cố. Vui lòng thử lại');
+        });
+    },
     validationSchema: Yup.object().shape({
       username: Yup.string().required('Đây là trường bắt buộc'),
       password: Yup.string().required('Đây là trường bắt buộc'),
     }),
   });
-  database()
-    .ref('/users/123')
-    .set({
-      name: 'Ada Lovelace',
-      age: 31,
-    })
-    .then(() => console.log('Data set.'));
+
   return (
     <SafeAreaView style={styles.root}>
+      {loading && <LoadingOverlay />}
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         <SvgIcon name="header" width={width} height={270} />
         <VStack mt="-65" bg="white" w="90%" alignSelf="center" borderRadius={10} shadow={1}>
@@ -78,7 +112,7 @@ const Signin = () => {
             </VStack>
             <FormControl.ErrorMessage ml={'5%'}>{formik.errors.password}</FormControl.ErrorMessage>
           </FormControl>
-          <TouchableOpacity style={styles.btnSignin} onPress={() => formik.handleSubmit()}>
+          <TouchableOpacity style={styles.btnSignin} onPress={formik.handleSubmit}>
             <Text fontSize={20} color="white">
               Đăng nhập
             </Text>

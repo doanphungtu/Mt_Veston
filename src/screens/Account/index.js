@@ -5,15 +5,18 @@ import Header from '~/components/Header';
 import useBoolean from '~/hooks/useBoolean';
 import styles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
 
 import ConfirmModal from '~/components/ConfirmModal';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import InputVStack from '~/components/InputVStack';
 import RadioBox from '~/components/RadioBox';
-import {navigate} from '~/utils/navigationHelpers';
+import {setRoot} from '~/utils/navigationHelpers';
 import {SIGNIN} from '~/constants/Routes';
+import {changeUserinfoAction} from '~/store/sessionSlice';
 
 const Account = () => {
+  const dispatch = useDispatch();
   const {value: isEdit, setTrue: enableEdit, setFalse: disbleEdit} = useBoolean(false);
   const {
     value: isOpenModalConfirm,
@@ -30,7 +33,8 @@ const Account = () => {
         onClose={setHideModalConfirm}
         onConfirm={() => {
           setHideModalConfirm();
-          navigate(SIGNIN);
+          dispatch(changeUserinfoAction(null));
+          setRoot(SIGNIN);
         }}
       />
       <Header

@@ -38,6 +38,7 @@ const styles = ScaledSheet.create({
     opacity: 0.8,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 1,
   },
 });
 

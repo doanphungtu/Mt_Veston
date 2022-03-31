@@ -1,19 +1,28 @@
+import database from '@react-native-firebase/database';
 import {useFormik} from 'formik';
 import {FormControl, HStack, Input, Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity, useWindowDimensions} from 'react-native';
+import 'react-native-get-random-values';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {v4 as uuidv4} from 'uuid';
 import * as Yup from 'yup';
-import RadioBox from '~/components/RadioBox';
 
+import {LoadingOverlay} from '~/components/Loading';
+import RadioBox from '~/components/RadioBox';
 import SvgIcon from '~/components/SvgIcon';
-import {FILL_PHONE, SIGNIN} from '~/constants/Routes';
+import {SIGNIN} from '~/constants/Routes';
 import useBoolean from '~/hooks/useBoolean';
+import {useNotification} from '~/hooks/useNotification';
 import {navigate} from '~/utils/navigationHelpers';
 import styles from './styles';
 
 const Signup = () => {
   const {width} = useWindowDimensions();
+  const {showErrorNotification, showSuccessNotification} = useNotification();
+  const {value: gender, setTrue, setFalse} = useBoolean(false);
+  const {value: loading, setTrue: setShowLoading, setFalse: setHideLoading} = useBoolean();
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -22,9 +31,47 @@ const Signup = () => {
       password: '',
       repassword: '',
     },
-    onSubmit: values => {},
+    onSubmit: values => {
+      setShowLoading();
+      database()
+        .ref()
+        .child('users')
+        .orderByChild('username')
+        .equalTo(values.username)
+        .once('value')
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            showErrorNotification('Tên tài khoản đã tồn tại. Vui lòng dùng tên tài khoản khác');
+          } else {
+            database()
+              .ref(`/users`)
+              .push({
+                uid: uuidv4(),
+                username: values.username,
+                fullname: values.fullname,
+                phonenumber: values.phonenumber,
+                password: values.password,
+                gender: gender,
+              })
+              .then(() => {
+                setHideLoading();
+                showSuccessNotification('Đăng ký thành công');
+                navigate(SIGNIN);
+              })
+              .catch(error => {
+                setHideLoading();
+                showErrorNotification('Đăng ký không thành công, vui lòng đăng ký lại');
+              });
+          }
+        })
+        .catch(error => {
+          showErrorNotification('Hệ thống gặp sự cố. Vui lòng thử lại');
+        });
+    },
     validationSchema: Yup.object().shape({
-      username: Yup.string().required('Đây là trường bắt buộc'),
+      username: Yup.string()
+        .required('Đây là trường bắt buộc')
+        .min(6, 'Tên đăng nhập phải có ít nhất 6 ký tự'),
       fullname: Yup.string().required('Đây là trường bắt buộc'),
       phonenumber: Yup.string().required('Đây là trường bắt buộc'),
       password: Yup.string()
@@ -32,13 +79,14 @@ const Signup = () => {
         .min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
       repassword: Yup.string()
         .required('Đây là trường bắt buộc')
+        .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
         .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
     }),
   });
-  const {value: gender, setTrue, setFalse} = useBoolean(false);
 
   return (
     <SafeAreaView style={styles.root}>
+      {loading && <LoadingOverlay />}
       <KeyboardAwareScrollView style={{flex: 1}}>
         <SvgIcon name="header" width={width} height={270} />
         <VStack mt="-120" bg="white" w="90%" alignSelf="center" borderRadius={10} shadow={1}>
@@ -98,6 +146,7 @@ const Signup = () => {
                 color={'black'}
                 value={formik.values.phonenumber}
                 onChangeText={text => formik.setFieldValue('phonenumber', text)}
+                keyboardType="number-pad"
               />
             </VStack>
             <FormControl.ErrorMessage ml={'5%'}>
@@ -156,8 +205,7 @@ const Signup = () => {
           <TouchableOpacity
             style={styles.btnSignin}
             onPress={() => {
-              // formik.handleSubmit();
-              navigate(FILL_PHONE);
+              formik.handleSubmit();
             }}>
             <Text fontSize={20} color="white">
               Đăng ký
