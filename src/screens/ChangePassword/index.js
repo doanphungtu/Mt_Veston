@@ -66,7 +66,6 @@ const ChangePassword = () => {
               placeholder: 'Nhập mật khẩu mới',
               value: formik.values.password,
               onChangeText: text => formik.setFieldValue('password', text),
-              keyboardType: 'number-pad',
             }}
             formControl={{isInvalid: formik.touched.password && formik.errors.password}}
             errorMsg={formik.errors.password}

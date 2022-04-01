@@ -22,7 +22,7 @@ const reducers = {
     state.data[index] = payload;
   },
   removeCustomerAction(state, {payload}) {
-    const newData = state.data.filter(e => e?.id != payload?.id);
+    const newData = state.data.filter(e => e?.id !== payload?.id);
     state.data = newData;
   },
   setFilterByAction(state, {payload}) {

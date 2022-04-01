@@ -7,7 +7,7 @@ import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 
 import ConfirmModal from '~/components/ConfirmModal';
@@ -39,7 +39,6 @@ const DetailCustomer = () => {
     setTrue: setVisibleDatePicker,
     setFalse: setHideDatePicker,
   } = useBoolean();
-  const customer = useSelector(state => state?.customer);
   const {format} = useDateFormat();
 
   const formik = useFormik({
@@ -87,7 +86,7 @@ const DetailCustomer = () => {
         .then(() => {
           setHideLoading();
           showSuccessNotification('Cập nhật thành công');
-          dispatch(changeCustomerAction({...customer?.data, ...newData}));
+          dispatch(changeCustomerAction({...data, ...newData}));
           disbleEdit();
         })
         .catch(() => {
