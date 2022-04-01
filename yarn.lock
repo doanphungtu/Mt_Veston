@@ -1518,9 +1518,9 @@
     "@react-aria/utils" "^3.3.0"
 
 "@react-native-async-storage/async-storage@^1.16.1":
-  version "1.17.2"
-  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.17.2.tgz#d9d65a11205801d7efb21acf8eaa5a1bd7ba7769"
-  integrity sha512-r6NUoAQhw/CF/IBox6cKaoPK+FfovGkLBGUgwqmhfAcBu7ncmFReNGwZcchqhWAvdBZdNZl9to724oAXbCZ4SA==
+  version "1.17.3"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.17.3.tgz#fa7010aa9b6a811ff653df3698a90d3c173dd6a6"
+  integrity sha512-2dxdlGwBjBP2qYu6F72U7cRRFshISYiNEWCaQNOJtxUERCMaYRWcniYqhL248KSbGUMpRhFCEtliztsiGoYYMA==
   dependencies:
     merge-options "^3.0.4"
 
@@ -2125,9 +2125,9 @@
   integrity sha512-afmTuJrylUU/0OtqzaRkbyYFFNgCF73Bvel/sw90pvGrWIZ+vyoIJqA6eMSoA6+nb443kTmulmBtC9NerXboNg==
 
 "@reduxjs/toolkit@^1.7.2":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.0.tgz#8ae875e481ed97e4a691aafa034f876bfd0413c4"
-  integrity sha512-cdfHWfcvLyhBUDicoFwG1u32JqvwKDxLxDd7zSmSoFw/RhYLOygIRtmaMjPRUUHmVmmAGAvquLLsKKU/677kSQ==
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.1.tgz#94ee1981b8cf9227cda40163a04704a9544c9a9f"
+  integrity sha512-Q6mzbTpO9nOYRnkwpDlFOAbQnd3g7zj7CtHAZWz5SzE5lcV97Tf8f3SzOO8BoPOMYBFgfZaqTUZqgGu+a0+Fng==
   dependencies:
     immer "^9.0.7"
     redux "^4.1.2"
@@ -2560,7 +2560,7 @@ array-filter@~0.0.0:
   resolved "https://registry.yarnpkg.com/array-filter/-/array-filter-0.0.1.tgz#7da8cf2e26628ed732803581fd21f67cacd2eeec"
   integrity sha1-fajPLiZijtcygDWB/SH2fKzS7uw=
 
-array-includes@^3.1.3, array-includes@^3.1.4:
+array-includes@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/array-includes/-/array-includes-3.1.4.tgz#f5b493162c760f3539631f005ba2bb46acb45ba9"
   integrity sha512-ZTNSQkmWumEbiHO2GF4GmWxYVTiQyJy2XOTa15sdQSrvKn7l+180egQMqlrMOUMCyLMD7pmyQe4mMDUT6Behrw==
@@ -2974,9 +2974,9 @@ camelcase@^6.0.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001317:
-  version "1.0.30001322"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001322.tgz#2e4c09d11e1e8f852767dab287069a8d0c29d623"
-  integrity sha512-neRmrmIrCGuMnxGSoh+x7zYtQFFgnSY2jaomjU56sCkTA6JINqQrxutF459JpWcWRajvoyn95sOXq4Pqrnyjew==
+  version "1.0.30001323"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001323.tgz#a451ff80dec7033016843f532efda18f02eec011"
+  integrity sha512-e4BF2RlCVELKx8+RmklSEIVub1TWrmdhvA5kEUueummz1XyySW0DVk+3x9HyhU9MuWTa2BhqLgEuEmUwASAdCA==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -3296,9 +3296,9 @@ css-tree@^1.0.0-alpha.39:
     source-map "^0.6.1"
 
 css-what@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/css-what/-/css-what-6.0.1.tgz#3be33be55b9f302f710ba3a9c3abc1e2a63fc7eb"
-  integrity sha512-z93ZGFLNc6yaoXAmVhqoSIb+BduplteCt1fepvwhBUQK6MNE4g6fgjpuZKJKp0esUe+vXWlIkwZZjNWoOKw0ZA==
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/css-what/-/css-what-6.1.0.tgz#fb5effcf76f1ddea2c81bdfaa4de44e79bac70f4"
+  integrity sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==
 
 cssom@^0.4.4:
   version "0.4.4"
@@ -4081,9 +4081,9 @@ flatted@^2.0.0:
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
 flow-parser@0.*:
-  version "0.174.1"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.174.1.tgz#bb81e17fe45a1e64d9752090e819a6744a539fa0"
-  integrity sha512-nDMOvlFR+4doLpB3OJpseHZ7uEr3ENptlF6qMas/kzQmNcLzMwfQeFX0gGJ/+em7UdldB/nGsk55tDTOvjbCuw==
+  version "0.175.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.175.0.tgz#622c2e1dadeed0cc3d25779b143a0935bf515983"
+  integrity sha512-9XG5JGOjhODF+OQF5ufCw8XiGi+8B46scjr3Q49JxN7IDRdT2W+1AOuvKKd6j766/5E7qSuCn/dsq1y3hihntg==
 
 flow-parser@^0.121.0:
   version "0.121.0"
@@ -5429,11 +5429,11 @@ jsonify@~0.0.0:
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
 "jsx-ast-utils@^2.4.1 || ^3.0.0":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-3.2.1.tgz#720b97bfe7d901b927d87c3773637ae8ea48781b"
-  integrity sha512-uP5vu8xfy2F9A6LGC22KO7e2/vGTS1MhP+18f++ZNlf0Ohaxbc9nIEwHAsejlJKyzfZzU5UIhe5ItYkitcZnZA==
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-3.2.2.tgz#6ab1e52c71dfc0c0707008a91729a9491fe9f76c"
+  integrity sha512-HDAyJ4MNQBboGpUnHAVUNJs6X0lh058s6FuixsFGP7MgJYpD6Vasd6nzSG5iIfXu1zAYlHJ/zsOKNlrenTUBnw==
   dependencies:
-    array-includes "^3.1.3"
+    array-includes "^3.1.4"
     object.assign "^4.1.2"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
@@ -6871,9 +6871,9 @@ react-native@0.67.2:
     ws "^6.1.4"
 
 react-redux@^7.2.6:
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.6.tgz#49633a24fe552b5f9caf58feb8a138936ddfe9aa"
-  integrity sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ==
+  version "7.2.7"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.7.tgz#f5edd4e4bc34ec8787451d77d16663abf12f8be9"
+  integrity sha512-kpstUHhXgT5HOLwzoRhDr3AWHO7H5mgTN5pX1H02OuoIMaZiOLYlul8vgan2WE8eEttAEMew8Npgzd3C6Asdow==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@types/react-redux" "^7.1.20"

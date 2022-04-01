@@ -131,6 +131,7 @@ const AddCustomer = () => {
               isDisabled: true,
               onPressIn: () => setVisibleDatePicker(),
             }}
+            showDivider
           />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">

@@ -57,6 +57,7 @@ const Signin = () => {
           }
         })
         .catch(error => {
+          setHideLoading();
           showErrorNotification('Hệ thống gặp sự cố. Vui lòng thử lại');
         });
     },
