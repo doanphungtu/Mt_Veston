@@ -1,3 +1,5 @@
+import database from '@react-native-firebase/database';
+import {useRoute} from '@react-navigation/native';
 import {useFormik} from 'formik';
 import {FormControl, Input, Text, VStack} from 'native-base';
 import React from 'react';
@@ -6,20 +8,63 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Yup from 'yup';
 
+import {LoadingOverlay} from '~/components/Loading';
 import SvgIcon from '~/components/SvgIcon';
 import {SIGNIN} from '~/constants/Routes';
-import {goBack, navigate} from '~/utils/navigationHelpers';
+import useBoolean from '~/hooks/useBoolean';
+import {useNotification} from '~/hooks/useNotification';
+import {goBack, setRoot} from '~/utils/navigationHelpers';
 import styles from './styles';
 
 const ForgotPassword = () => {
+  const route = useRoute();
+  const phonenumber = route?.params?.phonenumber;
   const {width} = useWindowDimensions();
+  const {showErrorNotification, showSuccessNotification} = useNotification();
+  const {value: loading, setTrue: setShowLoading, setFalse: setHideLoading} = useBoolean();
 
   const formik = useFormik({
     initialValues: {
       password: '',
       repassword: '',
     },
-    onSubmit: values => {},
+    onSubmit: values => {
+      setShowLoading();
+      const newData = {
+        password: values.password,
+      };
+      database()
+        .ref('/users')
+        .orderByChild('phonenumber')
+        .equalTo(phonenumber)
+        .once('value')
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            let userData = {};
+            snapshot.forEach(child => {
+              userData = {...child.val(), id: child?.key};
+            });
+            database()
+              .ref('users/' + userData?.id)
+              .update(newData)
+              .then(() => {
+                setHideLoading();
+                showSuccessNotification('Cập nhật mật khẩu thành công');
+                setRoot(SIGNIN);
+              })
+              .catch(() => {
+                setHideLoading();
+                showErrorNotification('Cập nhật mật khẩu thất bại, vui lòng thử lại sau');
+              });
+          } else {
+            showErrorNotification('Hệ thống gặp sự cố. Vui lòng thử lại');
+          }
+        })
+        .catch(error => {
+          setHideLoading();
+          showErrorNotification('Hệ thống gặp sự cố. Vui lòng thử lại');
+        });
+    },
     validationSchema: Yup.object().shape({
       password: Yup.string()
         .required('Đây là trường bắt buộc')
@@ -32,6 +77,7 @@ const ForgotPassword = () => {
 
   return (
     <SafeAreaView style={styles.root}>
+      {loading && <LoadingOverlay />}
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         <SvgIcon name="header" width={width} height={270} />
         <TouchableOpacity onPress={() => goBack()} style={styles.btnBack}>
@@ -82,11 +128,7 @@ const ForgotPassword = () => {
             </FormControl.ErrorMessage>
           </FormControl>
         </VStack>
-        <TouchableOpacity
-          style={styles.btnNext}
-          onPress={() => {
-            navigate(SIGNIN);
-          }}>
+        <TouchableOpacity style={styles.btnNext} onPress={formik.handleSubmit}>
           <Text fontSize={20} color="white">
             Tiếp tục
           </Text>

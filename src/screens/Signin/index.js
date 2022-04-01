@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 
 import {LoadingOverlay} from '~/components/Loading';
 import SvgIcon from '~/components/SvgIcon';
-import {HOME_TAB, SIGNUP} from '~/constants/Routes';
+import {FILL_PHONE, HOME_TAB, SIGNUP} from '~/constants/Routes';
 import useBoolean from '~/hooks/useBoolean';
 import {useNotification} from '~/hooks/useNotification';
 import {changeUserinfoAction} from '~/store/sessionSlice';
@@ -114,6 +114,14 @@ const Signin = () => {
             </VStack>
             <FormControl.ErrorMessage ml={'5%'}>{formik.errors.password}</FormControl.ErrorMessage>
           </FormControl>
+          <Text
+            fontSize={16}
+            alignSelf="flex-end"
+            mr="5%"
+            mt="3"
+            onPress={() => navigate(FILL_PHONE)}>
+            Quên mật khẩu
+          </Text>
           <TouchableOpacity style={styles.btnSignin} onPress={formik.handleSubmit}>
             <Text fontSize={20} color="white">
               Đăng nhập

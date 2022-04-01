@@ -13,12 +13,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import SvgIcon from '~/components/SvgIcon';
 import {FORGOT_PASSWORD} from '~/constants/Routes';
+import {useNotification} from '~/hooks/useNotification';
 import {goBack, navigate} from '~/utils/navigationHelpers';
 import styles from './styles';
 
 const VerifyPhone = () => {
   const {width} = useWindowDimensions();
   const route = useRoute();
+  const confirmation = route?.params?.confirmation;
+  const {showErrorNotification} = useNotification();
 
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: 6});
@@ -26,6 +29,17 @@ const VerifyPhone = () => {
     value,
     setValue,
   });
+
+  async function handleVerifyCode() {
+    try {
+      await confirmation.confirm(value);
+      navigate(FORGOT_PASSWORD, {
+        phonenumber: route?.params?.phonenumber,
+      });
+    } catch (error) {
+      showErrorNotification('Sai mã OTP, vui lòng thử lại');
+    }
+  }
 
   return (
     <SafeAreaView style={styles.root}>
@@ -67,11 +81,7 @@ const VerifyPhone = () => {
             )}
           />
         </VStack>
-        <TouchableOpacity
-          style={styles.btnNext}
-          onPress={() => {
-            navigate(FORGOT_PASSWORD);
-          }}>
+        <TouchableOpacity style={styles.btnNext} onPress={handleVerifyCode}>
           <Text fontSize={20} color="white">
             Tiếp tục
           </Text>
