@@ -1,7 +1,7 @@
 import {firebase} from '@react-native-firebase/auth';
 import {Platform} from 'react-native';
 
-const AndroidID = '1:487494890874:android:38cd72b0b579528d4812c3';
+const AndroidID = '1:273108821272:android:907d2ce3c3bef6ff2d2a6d';
 const IosID = '1:487494890874:ios:97e2e493f55e4b284812c3';
 
 const config = {

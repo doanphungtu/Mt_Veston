@@ -41,6 +41,7 @@ const Signup = () => {
         .once('value')
         .then(snapshot => {
           if (snapshot.exists()) {
+            setHideLoading();
             showErrorNotification('Tên tài khoản đã tồn tại. Vui lòng dùng tên tài khoản khác');
           } else {
             database()

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "273108821272",
+    "firebase_url": "https://minhtienveston-default-rtdb.firebaseio.com",
+    "project_id": "minhtienveston",
+    "storage_bucket": "minhtienveston.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273108821272:android:907d2ce3c3bef6ff2d2a6d",
+        "android_client_info": {
+          "package_name": "com.base_ntb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273108821272-jm6oca85v9tcs4siav9cjs9qcdo2d3ar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_yuOaRuIdfQuRR7SVgsxZtmVVnHwJQBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "273108821272-jm6oca85v9tcs4siav9cjs9qcdo2d3ar.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "273108821272-vqc8iko6mrse0ugcm2er0fcoiro8b1ti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.MTVeston"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
