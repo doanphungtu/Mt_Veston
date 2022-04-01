@@ -24,8 +24,8 @@ const Signin = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: 'Doanphungtu',
-      password: '01259355497',
+      username: '',
+      password: '',
     },
     onSubmit: values => {
       setShowLoading();

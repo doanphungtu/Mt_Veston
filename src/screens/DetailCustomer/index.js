@@ -1,13 +1,14 @@
 import database from '@react-native-firebase/database';
 import {useRoute} from '@react-navigation/native';
 import {useFormik} from 'formik';
-import {Divider, Menu, Pressable, Text, VStack} from 'native-base';
+import {Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
+import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 
 import ConfirmModal from '~/components/ConfirmModal';
 import Header from '~/components/Header';
@@ -32,6 +33,7 @@ const DetailCustomer = () => {
   const dispatch = useDispatch();
   const {showErrorNotification, showSuccessNotification} = useNotification();
   const {value: loading, setTrue: setShowLoading, setFalse: setHideLoading} = useBoolean();
+  const {value: visible, setTrue: showMenu, setFalse: hideMenu} = useBoolean();
   const {
     value: visibleDatePicker,
     setTrue: setVisibleDatePicker,
@@ -146,22 +148,33 @@ const DetailCustomer = () => {
           }
           return (
             <Menu
-              w="190"
-              trigger={triggerProps => {
-                return (
-                  <Pressable hitSlop={{left: 10, right: 10}} {...triggerProps}>
-                    <MaterialCommunityIcons name="dots-vertical" size={30} color="white" />
-                  </Pressable>
-                );
-              }}>
-              <Menu.Item onPress={enableEdit}>Sửa</Menu.Item>
-              <Divider />
-              <Menu.Item onPress={setOpenModalConfirm}>Xoá</Menu.Item>
+              visible={visible}
+              anchor={
+                <TouchableOpacity onPress={showMenu}>
+                  <MaterialCommunityIcons name="dots-vertical" size={30} color="white" />
+                </TouchableOpacity>
+              }
+              onRequestClose={hideMenu}>
+              <MenuItem
+                onPress={() => {
+                  enableEdit();
+                  hideMenu();
+                }}>
+                Sửa
+              </MenuItem>
+              <MenuDivider />
+              <MenuItem
+                onPress={() => {
+                  setOpenModalConfirm();
+                  hideMenu();
+                }}>
+                Xoá
+              </MenuItem>
             </Menu>
           );
         }}
       />
-      <KeyboardAwareScrollView style={{flex: 1}}>
+      <KeyboardAwareScrollView style={{flex: 1}} enableOnAndroid={true}>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
             label="Tên khách hàng"
