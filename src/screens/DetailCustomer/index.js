@@ -1,7 +1,7 @@
 import database from '@react-native-firebase/database';
 import {useRoute} from '@react-navigation/native';
 import {useFormik} from 'formik';
-import {Text, VStack} from 'native-base';
+import {Divider, Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -159,7 +159,7 @@ const DetailCustomer = () => {
                   enableEdit();
                   hideMenu();
                 }}>
-                Sửa
+                <Text color={'black'}>Sửa</Text>
               </MenuItem>
               <MenuDivider />
               <MenuItem
@@ -167,7 +167,7 @@ const DetailCustomer = () => {
                   setOpenModalConfirm();
                   hideMenu();
                 }}>
-                Xoá
+                <Text color={'black'}>Xoá</Text>
               </MenuItem>
             </Menu>
           );
@@ -198,18 +198,22 @@ const DetailCustomer = () => {
           />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <InputVStack
-            label="Ngày trả"
-            input={{
-              placeholder: 'Nhập ngày trả',
-              value: formik.values.payDate ? format(formik.values.payDate) : '',
-              isDisabled: true,
-              onPressIn: () => {
-                isEdit && setVisibleDatePicker();
-              },
-            }}
-            showDivider={isEdit}
-          />
+          <Text color="#808080" fontSize={14}>
+            Ngày trả
+          </Text>
+          <TouchableOpacity
+            disabled={!isEdit}
+            style={styles.btnDate}
+            onPress={setVisibleDatePicker}>
+            <Text
+              adjustsFontSizeToFit
+              mt="1"
+              fontSize={18}
+              color={!formik.values.payDate ? '#808080' : 'black'}>
+              {formik.values.payDate ? format(formik.values.payDate) : 'Nhập ngày trả'}
+            </Text>
+          </TouchableOpacity>
+          {isEdit && <Divider background="#808080" />}
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack

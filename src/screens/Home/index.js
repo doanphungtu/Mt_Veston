@@ -58,8 +58,8 @@ const Home = () => {
   function getlistCustomer() {
     database()
       .ref('/customers')
-      .orderByChild('uid')
-      .equalTo(session?.userinfo?.id)
+      // .orderByChild('uid')
+      // .equalTo(session?.userinfo?.id)
       .once('value')
       .then(snapshot => {
         setHideLoading();

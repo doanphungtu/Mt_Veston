@@ -1,6 +1,6 @@
 import database from '@react-native-firebase/database';
 import {useFormik} from 'formik';
-import {Text, VStack} from 'native-base';
+import {Divider, Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -55,7 +55,7 @@ const AddCustomer = () => {
         uid: session?.userinfo?.id,
         fullname: values.fullname,
         phonenumber: values.phonenumber,
-        payDate: values.payDate?.toString(),
+        payDate: values?.payDate ? values?.payDate?.toString() : new Date().toString(),
         fabricCode: values.fabricCode,
         longShirt: values.longShirt,
         shoulder: values.shoulder,
@@ -123,16 +123,19 @@ const AddCustomer = () => {
           />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <InputVStack
-            label="Ngày trả"
-            input={{
-              placeholder: 'Nhập ngày trả',
-              value: formik.values.payDate ? format(formik.values.payDate) : '',
-              isDisabled: true,
-              onPressIn: () => setVisibleDatePicker(),
-            }}
-            showDivider
-          />
+          <Text color="#808080" fontSize={14}>
+            Ngày trả
+          </Text>
+          <TouchableOpacity style={styles.btnDate} onPress={setVisibleDatePicker}>
+            <Text
+              adjustsFontSizeToFit
+              mt="1"
+              fontSize={18}
+              color={!formik.values.payDate ? '#808080' : 'black'}>
+              {formik.values.payDate ? format(formik.values.payDate) : 'Nhập ngày trả'}
+            </Text>
+          </TouchableOpacity>
+          <Divider background="#808080" />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack

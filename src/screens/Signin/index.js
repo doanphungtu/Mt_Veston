@@ -128,12 +128,12 @@ const Signin = () => {
             </Text>
           </TouchableOpacity>
         </VStack>
-        <Text fontSize={18} color="black" alignSelf={'center'} mt={15}>
+        {/* <Text fontSize={18} color="black" alignSelf={'center'} mt={15}>
           Bạn chưa có tài khoản?{' '}
           <Text color="#0A52A8" onPress={() => navigate(SIGNUP)}>
             ĐĂNG KÝ
           </Text>
-        </Text>
+        </Text> */}
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
