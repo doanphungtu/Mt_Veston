@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>273108821272-vqc8iko6mrse0ugcm2er0fcoiro8b1ti.apps.googleusercontent.com</string>
+	<string>273108821272-pq46akrlu0iv4j6cmtklu5f2buinp11g.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.273108821272-vqc8iko6mrse0ugcm2er0fcoiro8b1ti</string>
+	<string>com.googleusercontent.apps.273108821272-pq46akrlu0iv4j6cmtklu5f2buinp11g</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>273108821272-dj1ob03j4ncga7bocfluukghoqkkbn67.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDugHWJBuEe7mtFIcBNPbtalmDWaivkMd4</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.MTVeston</string>
+	<string>com.MTVeston</string>
 	<key>PROJECT_ID</key>
 	<string>minhtienveston</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:273108821272:ios:3bbcf48802de8b8f2d2a6d</string>
+	<string>1:273108821272:ios:7f5518776d2a1ee42d2a6d</string>
 	<key>DATABASE_URL</key>
 	<string>https://minhtienveston-default-rtdb.firebaseio.com</string>
 </dict>

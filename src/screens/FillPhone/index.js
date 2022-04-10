@@ -6,6 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Yup from 'yup';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
 import SvgIcon from '~/components/SvgIcon';
 import {VERIFY_PHONE} from '~/constants/Routes';
@@ -22,7 +23,21 @@ const FillPhone = () => {
       phonenumber: '',
     },
     onSubmit: values => {
-      signInWithPhoneNumber(values.phonenumber);
+      database()
+        .ref('/users')
+        .orderByChild('phonenumber')
+        .equalTo(values.phonenumber)
+        .once('value')
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            signInWithPhoneNumber(values.phonenumber);
+          } else {
+            showErrorNotification('Số điện thoại không khớp với tài khoản nào');
+          }
+        })
+        .catch(error => {
+          showErrorNotification('Hệ thống gặp sự cố. Vui lòng thử lại');
+        });
     },
     validationSchema: Yup.object().shape({
       phonenumber: Yup.string().required('Đây là trường bắt buộc'),
@@ -37,7 +52,6 @@ const FillPhone = () => {
         confirmation: confirmation,
       });
     } catch (error) {
-      console.log('aaa', error);
       showErrorNotification('Số điện thoại không hợp lệ. Vui lòng nhập lại');
     }
   }

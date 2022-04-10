@@ -1,6 +1,6 @@
 import {useRoute} from '@react-navigation/native';
 import {Text, View, VStack} from 'native-base';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, TouchableOpacity, useWindowDimensions} from 'react-native';
 import {
   CodeField,
@@ -10,6 +10,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import auth from '@react-native-firebase/auth';
 
 import SvgIcon from '~/components/SvgIcon';
 import {FORGOT_PASSWORD} from '~/constants/Routes';
@@ -30,6 +31,21 @@ const VerifyPhone = () => {
     setValue,
   });
 
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const onAuthStateChanged = async user => {
+    if (user) {
+      navigate(FORGOT_PASSWORD, {
+        phonenumber: route?.params?.phonenumber,
+      });
+      await auth().signOut();
+      await auth().currentUser.delete();
+    }
+  };
+
   async function handleVerifyCode() {
     try {
       await confirmation.confirm(value);
@@ -37,6 +53,7 @@ const VerifyPhone = () => {
         phonenumber: route?.params?.phonenumber,
       });
     } catch (error) {
+      console.log(error);
       showErrorNotification('Sai mã OTP, vui lòng thử lại');
     }
   }

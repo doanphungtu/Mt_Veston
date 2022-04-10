@@ -29,12 +29,12 @@
 			<string>Phone</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.273108821272-vqc8iko6mrse0ugcm2er0fcoiro8b1ti</string>
+				<string>com.googleusercontent.apps.273108821272-pq46akrlu0iv4j6cmtklu5f2buinp11g</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
