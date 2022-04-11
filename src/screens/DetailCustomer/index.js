@@ -1,7 +1,7 @@
 import database from '@react-native-firebase/database';
 import {useRoute} from '@react-navigation/native';
 import {useFormik} from 'formik';
-import {Divider, Text, VStack} from 'native-base';
+import {Divider, HStack, Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -43,10 +43,8 @@ const DetailCustomer = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullname: data?.fullname,
+      fullname: data?.fullname?.trim(),
       phonenumber: data?.phonenumber,
-      payDate: new Date(data?.payDate) || null,
-      fabricCode: data?.fabricCode,
       longShirt: data?.longShirt,
       shoulder: data?.shoulder,
       hand: data?.hand,
@@ -54,19 +52,22 @@ const DetailCustomer = () => {
       neck: data?.neck,
       arm: data?.arm,
       belly: data?.belly,
+      note0: data?.note0,
+      waist: data?.waist,
       butt: data?.butt,
       longPan: data?.longPan,
       leg: data?.leg,
       totalMoney: data?.totalMoney,
       note: data?.note,
+
+      // payDate: new Date(data?.payDate) || null,
+      // fabricCode: data?.fabricCode,
     },
     onSubmit: values => {
       setShowLoading();
       const newData = {
         fullname: values.fullname,
         phonenumber: values.phonenumber,
-        payDate: values.payDate?.toString(),
-        fabricCode: values.fabricCode,
         longShirt: values.longShirt,
         shoulder: values.shoulder,
         hand: values.hand,
@@ -74,11 +75,15 @@ const DetailCustomer = () => {
         neck: values.neck,
         arm: values.arm,
         belly: values.belly,
+        note0: values.note0,
+        waist: values.waist,
         butt: values.butt,
         longPan: values.longPan,
         leg: values.leg,
         totalMoney: values.totalMoney,
         note: values.note,
+        // payDate: values.payDate?.toString(),
+        // fabricCode: values.fabricCode,
       };
       database()
         .ref('customers/' + data?.id)
@@ -197,7 +202,7 @@ const DetailCustomer = () => {
             }}
           />
         </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+        {/* <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <Text color="#808080" fontSize={14}>
             Ngày trả
           </Text>
@@ -225,7 +230,7 @@ const DetailCustomer = () => {
               isDisabled: !isEdit,
             }}
           />
-        </VStack>
+        </VStack> */}
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
             label="Dài áo"
@@ -274,7 +279,44 @@ const DetailCustomer = () => {
             }}
           />
         </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+
+        <HStack
+          width="90%"
+          alignItems="center"
+          justifyContent="space-between"
+          alignSelf="center"
+          background="white"
+          shadow={1}
+          mt="5%">
+          <VStack width="45%" background="white" p="2">
+            <InputVStack
+              label="Cổ"
+              input={{
+                placeholder: 'Nhập cổ',
+                value: formik.values.neck,
+                onChangeText: text => formik.setFieldValue('neck', text),
+                keyboardType: 'numeric',
+                isDisabled: !isEdit,
+              }}
+            />
+          </VStack>
+          <Text fontSize={50} adjustsFontSizeToFit color="grey">
+            /
+          </Text>
+          <VStack width="45%" background="white" p="2">
+            <InputVStack
+              label="Bắp tay"
+              input={{
+                placeholder: 'Nhập bắp tay',
+                value: formik.values.arm,
+                onChangeText: text => formik.setFieldValue('arm', text),
+                keyboardType: 'numeric',
+                isDisabled: !isEdit,
+              }}
+            />
+          </VStack>
+        </HStack>
+        {/* <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
             label="Cổ"
             input={{
@@ -297,14 +339,37 @@ const DetailCustomer = () => {
               isDisabled: !isEdit,
             }}
           />
+        </VStack> */}
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Bụng trên"
+            input={{
+              placeholder: 'Nhập bụng trên',
+              value: formik.values.belly,
+              onChangeText: text => formik.setFieldValue('belly', text),
+              keyboardType: 'numeric',
+              isDisabled: !isEdit,
+            }}
+          />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
-            label="Bụng"
+            label="Ghi chú"
             input={{
-              placeholder: 'Nhập bụng',
-              value: formik.values.belly,
-              onChangeText: text => formik.setFieldValue('belly', text),
+              placeholder: 'Nhập ghi chú',
+              value: formik.values.note0,
+              onChangeText: text => formik.setFieldValue('note0', text),
+              isDisabled: !isEdit,
+            }}
+          />
+        </VStack>
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Eo"
+            input={{
+              placeholder: 'Nhập eo',
+              value: formik.values.waist,
+              onChangeText: text => formik.setFieldValue('waist', text),
               keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}

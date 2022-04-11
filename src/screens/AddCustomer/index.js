@@ -1,6 +1,6 @@
 import database from '@react-native-firebase/database';
 import {useFormik} from 'formik';
-import {Divider, Text, VStack} from 'native-base';
+import {Divider, HStack, Text, VStack} from 'native-base';
 import React from 'react';
 import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -34,8 +34,6 @@ const AddCustomer = () => {
     initialValues: {
       fullname: '',
       phonenumber: '',
-      payDate: null,
-      fabricCode: '',
       longShirt: '',
       shoulder: '',
       hand: '',
@@ -43,20 +41,22 @@ const AddCustomer = () => {
       neck: '',
       arm: '',
       belly: '',
+      note0: '',
+      waist: '',
       butt: '',
       longPan: '',
       leg: '',
       totalMoney: '',
       note: '',
+      payDate: null,
+      fabricCode: '',
     },
     onSubmit: values => {
       setShowLoading();
       const newData = {
         uid: session?.userinfo?.id,
-        fullname: values.fullname,
+        fullname: values.fullname.trim(),
         phonenumber: values.phonenumber,
-        payDate: values?.payDate ? values?.payDate?.toString() : new Date().toString(),
-        fabricCode: values.fabricCode,
         longShirt: values.longShirt,
         shoulder: values.shoulder,
         hand: values.hand,
@@ -64,11 +64,15 @@ const AddCustomer = () => {
         neck: values.neck,
         arm: values.arm,
         belly: values.belly,
+        note0: values.note0,
+        waist: values.waist,
         butt: values.butt,
         longPan: values.longPan,
         leg: values.leg,
         totalMoney: values.totalMoney,
         note: values.note,
+        // payDate: values?.payDate ? values?.payDate?.toString() : new Date().toString(),
+        // fabricCode: values.fabricCode,
       };
       database()
         .ref(`/customers`)
@@ -123,31 +127,6 @@ const AddCustomer = () => {
           />
         </VStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <Text color="#808080" fontSize={14}>
-            Ngày trả
-          </Text>
-          <TouchableOpacity style={styles.btnDate} onPress={setVisibleDatePicker}>
-            <Text
-              adjustsFontSizeToFit
-              mt="1"
-              fontSize={18}
-              color={!formik.values.payDate ? '#808080' : 'black'}>
-              {formik.values.payDate ? format(formik.values.payDate) : 'Nhập ngày trả'}
-            </Text>
-          </TouchableOpacity>
-          <Divider background="#808080" />
-        </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <InputVStack
-            label="Mã vải"
-            input={{
-              placeholder: 'Nhập mã vải',
-              value: formik.values.fabricCode,
-              onChangeText: text => formik.setFieldValue('fabricCode', text),
-            }}
-          />
-        </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
             label="Dài áo"
             input={{
@@ -191,35 +170,68 @@ const AddCustomer = () => {
             }}
           />
         </VStack>
+        <HStack
+          width="90%"
+          alignItems="center"
+          justifyContent="space-between"
+          alignSelf="center"
+          background="white"
+          shadow={1}
+          mt="5%">
+          <VStack width="45%" background="white" p="2">
+            <InputVStack
+              label="Cổ"
+              input={{
+                placeholder: 'Nhập cổ',
+                value: formik.values.neck,
+                onChangeText: text => formik.setFieldValue('neck', text),
+                keyboardType: 'numeric',
+              }}
+            />
+          </VStack>
+          <Text fontSize={50} adjustsFontSizeToFit color="grey">
+            /
+          </Text>
+          <VStack width="45%" background="white" p="2">
+            <InputVStack
+              label="Bắp tay"
+              input={{
+                placeholder: 'Nhập bắp tay',
+                value: formik.values.arm,
+                onChangeText: text => formik.setFieldValue('arm', text),
+                keyboardType: 'numeric',
+              }}
+            />
+          </VStack>
+        </HStack>
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
-            label="Cổ"
+            label="Bụng trên"
             input={{
-              placeholder: 'Nhập cổ',
-              value: formik.values.neck,
-              onChangeText: text => formik.setFieldValue('neck', text),
-              keyboardType: 'numeric',
-            }}
-          />
-        </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <InputVStack
-            label="Bắp tay"
-            input={{
-              placeholder: 'Nhập bắp tay',
-              value: formik.values.arm,
-              onChangeText: text => formik.setFieldValue('arm', text),
-              keyboardType: 'numeric',
-            }}
-          />
-        </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
-          <InputVStack
-            label="Bụng"
-            input={{
-              placeholder: 'Nhập bụng',
+              placeholder: 'Nhập bụng trên',
               value: formik.values.belly,
               onChangeText: text => formik.setFieldValue('belly', text),
+              keyboardType: 'numeric',
+            }}
+          />
+        </VStack>
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Ghi chú"
+            input={{
+              placeholder: 'Nhập ghi chú',
+              value: formik.values.note0,
+              onChangeText: text => formik.setFieldValue('note0', text),
+            }}
+          />
+        </VStack>
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Eo"
+            input={{
+              placeholder: 'Nhập eo',
+              value: formik.values.waist,
+              onChangeText: text => formik.setFieldValue('waist', text),
               keyboardType: 'numeric',
             }}
           />
@@ -257,6 +269,33 @@ const AddCustomer = () => {
             }}
           />
         </VStack>
+
+        {/* <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <Text color="#808080" fontSize={14}>
+            Ngày trả
+          </Text>
+          <TouchableOpacity style={styles.btnDate} onPress={setVisibleDatePicker}>
+            <Text
+              adjustsFontSizeToFit
+              mt="1"
+              fontSize={18}
+              color={!formik.values.payDate ? '#808080' : 'black'}>
+              {formik.values.payDate ? format(formik.values.payDate) : 'Nhập ngày trả'}
+            </Text>
+          </TouchableOpacity>
+          <Divider background="#808080" />
+        </VStack>
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Mã vải"
+            input={{
+              placeholder: 'Nhập mã vải',
+              value: formik.values.fabricCode,
+              onChangeText: text => formik.setFieldValue('fabricCode', text),
+            }}
+          />
+        </VStack> */}
+
         <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <InputVStack
             label="Thành tiền"

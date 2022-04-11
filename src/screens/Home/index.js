@@ -100,7 +100,7 @@ const Home = () => {
           borderRadius={10}
           shadow={1}>
           <Avatar mr={scale(12)} background={'#F7F8FA'}>
-            {getTextAvt(item?.fullname || '')}
+            {getTextAvt(item?.fullname?.trim() || '')}
           </Avatar>
           <VStack flex="1">
             <Text fontSize={18} fontWeight={'bold'}>
