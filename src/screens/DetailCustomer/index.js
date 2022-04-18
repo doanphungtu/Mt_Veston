@@ -3,12 +3,16 @@ import {useRoute} from '@react-navigation/native';
 import {useFormik} from 'formik';
 import {Divider, HStack, Text, VStack} from 'native-base';
 import React from 'react';
-import {SafeAreaView, TouchableOpacity} from 'react-native';
+import {Platform, SafeAreaView, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import RNPermissions from 'react-native-permissions';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
 
 import ConfirmModal from '~/components/ConfirmModal';
 import Header from '~/components/Header';
@@ -20,6 +24,8 @@ import {useNotification} from '~/hooks/useNotification';
 import {changeCustomerAction, removeCustomerAction} from '~/store/customerSlice';
 import {goBack} from '~/utils/navigationHelpers';
 import styles from './styles';
+
+const DocumentDir = ReactNativeBlobUtil.fs.dirs.DocumentDir;
 
 const DetailCustomer = () => {
   const route = useRoute();
@@ -56,6 +62,7 @@ const DetailCustomer = () => {
       waist: data?.waist,
       butt: data?.butt,
       longPan: data?.longPan,
+      thighs: data?.thighs,
       leg: data?.leg,
       totalMoney: data?.totalMoney,
       note: data?.note,
@@ -118,6 +125,70 @@ const DetailCustomer = () => {
       });
   }
 
+  async function handleSaveFile() {
+    try {
+      if (Platform.OS === 'android') {
+        const permissionRead = await RNPermissions.check(
+          RNPermissions.PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+        );
+        if (permissionRead !== RNPermissions.RESULTS.GRANTED) {
+          const grantedRead = await RNPermissions.request(
+            RNPermissions.PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+          );
+          if (grantedRead !== RNPermissions.RESULTS.GRANTED) {
+            showErrorNotification('Không có quyền');
+            return;
+          }
+        }
+
+        const permissionWrite = await RNPermissions.check(
+          RNPermissions.PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+        );
+        if (permissionWrite !== RNPermissions.RESULTS.GRANTED) {
+          const grantedWrite = await RNPermissions.request(
+            RNPermissions.PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          );
+          if (grantedWrite !== RNPermissions.RESULTS.GRANTED) {
+            showErrorNotification('Không có quyền');
+            return;
+          }
+        }
+      }
+      let options = {
+        html: `
+          <p>Họ t&ecirc;n: ${formik.values.fullname}</p>
+          <p>Số điện thoại: ${formik.values.phonenumber}</p>
+          <p>D&agrave;i &aacute;o: ${formik.values.longShirt}</p>
+          <p>Vai: ${formik.values.shoulder}</p>
+          <p>Tay: ${formik.values.hand}</p>
+          <p>Ngực: ${formik.values.chest}</p>
+          <p>Cổ: ${formik.values.neck} / Bắp tay: ${formik.values.arm}</p>
+          <p>Bụng tr&ecirc;n: ${formik.values.belly}</p>
+          <p>Ghi ch&uacute;: ${formik.values.note0}</p>
+          <p>eo: ${formik.values.waist}</p>
+          <p>M&ocirc;ng: ${formik.values.butt}</p>
+          <p>D&agrave;i quần: ${formik.values.longPan}</p>
+          <p>Ống: ${formik.values.leg}</p>
+          <p>Th&agrave;nh tiền: ${formik.values.totalMoney}</p>
+          <p>Ghi ch&uacute;: ${formik.values.note}</p>
+        `,
+        fileName: 'tableTest',
+        directory: 'Documents',
+      };
+      let file = await RNHTMLtoPDF.convert(options);
+      if (file.filePath) {
+        await RNPrint.print({filePath: file.filePath});
+        // if (Platform.OS === 'ios') {
+        //   ReactNativeBlobUtil.ios.openDocument(file.filePath);
+        // } else {
+        //   ReactNativeBlobUtil.android.actionViewIntent(file.filePath, 'application/pdf');
+        // }
+      }
+    } catch (error) {
+      showErrorNotification('Lỗi hệ thống. Vui lòng thử lại');
+    }
+  }
+
   return (
     <SafeAreaView style={styles.root}>
       <ConfirmModal
@@ -173,6 +244,14 @@ const DetailCustomer = () => {
                   hideMenu();
                 }}>
                 <Text color={'black'}>Xoá</Text>
+              </MenuItem>
+              <MenuDivider />
+              <MenuItem
+                onPress={() => {
+                  handleSaveFile();
+                  hideMenu();
+                }}>
+                <Text color={'black'}>In</Text>
               </MenuItem>
             </Menu>
           );
@@ -238,7 +317,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập dài áo',
               value: formik.values.longShirt,
               onChangeText: text => formik.setFieldValue('longShirt', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -250,7 +329,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập vai',
               value: formik.values.shoulder,
               onChangeText: text => formik.setFieldValue('shoulder', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -262,7 +341,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập tay',
               value: formik.values.hand,
               onChangeText: text => formik.setFieldValue('hand', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -274,12 +353,11 @@ const DetailCustomer = () => {
               placeholder: 'Nhập ngực',
               value: formik.values.chest,
               onChangeText: text => formik.setFieldValue('chest', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
         </VStack>
-
         <HStack
           width="90%"
           alignItems="center"
@@ -295,7 +373,7 @@ const DetailCustomer = () => {
                 placeholder: 'Nhập cổ',
                 value: formik.values.neck,
                 onChangeText: text => formik.setFieldValue('neck', text),
-                keyboardType: 'numeric',
+                // keyboardType: 'numeric',
                 isDisabled: !isEdit,
               }}
             />
@@ -310,7 +388,7 @@ const DetailCustomer = () => {
                 placeholder: 'Nhập bắp tay',
                 value: formik.values.arm,
                 onChangeText: text => formik.setFieldValue('arm', text),
-                keyboardType: 'numeric',
+                // keyboardType: 'numeric',
                 isDisabled: !isEdit,
               }}
             />
@@ -323,7 +401,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập cổ',
               value: formik.values.neck,
               onChangeText: text => formik.setFieldValue('neck', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -335,7 +413,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập bắp tay',
               value: formik.values.arm,
               onChangeText: text => formik.setFieldValue('arm', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -347,7 +425,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập bụng trên',
               value: formik.values.belly,
               onChangeText: text => formik.setFieldValue('belly', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -370,7 +448,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập eo',
               value: formik.values.waist,
               onChangeText: text => formik.setFieldValue('waist', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -382,7 +460,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập mông',
               value: formik.values.butt,
               onChangeText: text => formik.setFieldValue('butt', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -394,7 +472,19 @@ const DetailCustomer = () => {
               placeholder: 'Nhập dài quần',
               value: formik.values.longPan,
               onChangeText: text => formik.setFieldValue('longPan', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
+              isDisabled: !isEdit,
+            }}
+          />
+        </VStack>
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Đùi quần"
+            input={{
+              placeholder: 'Nhập đùi quần',
+              value: formik.values.thighs,
+              onChangeText: text => formik.setFieldValue('thighs', text),
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />
@@ -406,7 +496,7 @@ const DetailCustomer = () => {
               placeholder: 'Nhập ống',
               value: formik.values.leg,
               onChangeText: text => formik.setFieldValue('leg', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
               isDisabled: !isEdit,
             }}
           />

@@ -88,7 +88,7 @@ const Filter = () => {
             }}
           />
         </VStack>
-        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+        {/* <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
           <Text color="#808080" fontSize={14}>
             Ngày trả
           </Text>
@@ -115,7 +115,7 @@ const Filter = () => {
               <Divider mt="1" />
             </TouchableOpacity>
           </HStack>
-        </VStack>
+        </VStack> */}
         <TouchableOpacity style={styles.btnSignin} onPress={handleSubmit}>
           <Text fontSize={18} fontWeight="bold" color="white">
             Áp dụng

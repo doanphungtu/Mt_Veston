@@ -107,7 +107,7 @@ const Home = () => {
               {item?.fullname || ''}
             </Text>
             <Text fontSize={14}>{item?.phonenumber}</Text>
-            <Text fontSize={14}>{format(item?.payDate)}</Text>
+            {/* <Text fontSize={14}>{format(item?.payDate)}</Text> */}
           </VStack>
         </HStack>
       </TouchableOpacity>

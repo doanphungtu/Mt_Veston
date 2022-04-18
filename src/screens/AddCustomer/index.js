@@ -45,6 +45,7 @@ const AddCustomer = () => {
       waist: '',
       butt: '',
       longPan: '',
+      thighs: '',
       leg: '',
       totalMoney: '',
       note: '',
@@ -68,6 +69,7 @@ const AddCustomer = () => {
         waist: values.waist,
         butt: values.butt,
         longPan: values.longPan,
+        thighs: values.thighs,
         leg: values.leg,
         totalMoney: values.totalMoney,
         note: values.note,
@@ -133,7 +135,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập dài áo',
               value: formik.values.longShirt,
               onChangeText: text => formik.setFieldValue('longShirt', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -144,7 +146,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập vai',
               value: formik.values.shoulder,
               onChangeText: text => formik.setFieldValue('shoulder', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -155,7 +157,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập tay',
               value: formik.values.hand,
               onChangeText: text => formik.setFieldValue('hand', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -166,7 +168,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập ngực',
               value: formik.values.chest,
               onChangeText: text => formik.setFieldValue('chest', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -185,7 +187,7 @@ const AddCustomer = () => {
                 placeholder: 'Nhập cổ',
                 value: formik.values.neck,
                 onChangeText: text => formik.setFieldValue('neck', text),
-                keyboardType: 'numeric',
+                // keyboardType: 'numeric',
               }}
             />
           </VStack>
@@ -199,7 +201,7 @@ const AddCustomer = () => {
                 placeholder: 'Nhập bắp tay',
                 value: formik.values.arm,
                 onChangeText: text => formik.setFieldValue('arm', text),
-                keyboardType: 'numeric',
+                // keyboardType: 'numeric',
               }}
             />
           </VStack>
@@ -211,7 +213,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập bụng trên',
               value: formik.values.belly,
               onChangeText: text => formik.setFieldValue('belly', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -232,7 +234,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập eo',
               value: formik.values.waist,
               onChangeText: text => formik.setFieldValue('waist', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -243,7 +245,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập mông',
               value: formik.values.butt,
               onChangeText: text => formik.setFieldValue('butt', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -254,7 +256,18 @@ const AddCustomer = () => {
               placeholder: 'Nhập dài quần',
               value: formik.values.longPan,
               onChangeText: text => formik.setFieldValue('longPan', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
+            }}
+          />
+        </VStack>
+        <VStack width="90%" alignSelf="center" background="white" shadow={1} p="2" mt="5%">
+          <InputVStack
+            label="Đùi quần"
+            input={{
+              placeholder: 'Nhập đùi quần',
+              value: formik.values.thighs,
+              onChangeText: text => formik.setFieldValue('thighs', text),
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
@@ -265,7 +278,7 @@ const AddCustomer = () => {
               placeholder: 'Nhập ống',
               value: formik.values.leg,
               onChangeText: text => formik.setFieldValue('leg', text),
-              keyboardType: 'numeric',
+              // keyboardType: 'numeric',
             }}
           />
         </VStack>
